@@ -1,0 +1,30 @@
+//
+// Created by ifdancoder on 14.10.2025.
+//
+
+#ifndef FILTERS_CONVOLUTIONFILTER_H
+#define FILTERS_CONVOLUTIONFILTER_H
+
+#include <algorithm>
+#include <cmath>
+
+#include "FilterDecorator.h"
+
+class ConvolutionFilter : public FilterDecorator {
+protected:
+    std::vector<std::vector<double> > kernel;
+    int kW, kH;
+    int padMode;
+
+public:
+    ConvolutionFilter(std::shared_ptr<IImageSource> src,
+                      const std::vector<std::vector<double>> &kern,
+                      int pad = 1);
+
+    [[nodiscard]] uint8_t sample(const Image &img, int x, int y) const;
+
+    Image applyFilter(Image &&in) const override;
+};
+
+
+#endif //FILTERS_CONVOLUTIONFILTER_H
