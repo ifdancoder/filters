@@ -7,26 +7,33 @@
 
 #include <cstdint>
 #include <vector>
+#include <opencv2/core/mat.hpp>
+
+#include "Pixel.h"
 
 class Image {
 protected:
     int w, h;
-    std::vector<uint8_t> data;
+    std::vector<Pixel> data;
 
 public:
-    Image(int width = 0, int height = 0);
+    explicit Image(int width = 0, int height = 0);
+
+    explicit Image(const cv::Mat& image);
+
+    [[nodiscard]] cv::Mat toMat() const;
 
     [[nodiscard]] int getWidth() const;
 
     [[nodiscard]] int getHeight() const;
 
-    uint8_t &at(int i);
+    Pixel &at(int i);
 
-    uint8_t &at(int x, int y);
+    Pixel &at(int x, int y);
 
-    [[nodiscard]] const uint8_t &at(int i) const;
+    [[nodiscard]] const Pixel &at(int i) const;
 
-    [[nodiscard]] const uint8_t &at(int x, int y) const;
+    [[nodiscard]] const Pixel &at(int x, int y) const;
 };
 
 

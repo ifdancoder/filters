@@ -11,9 +11,11 @@ ThresholdFilter::ThresholdFilter(std::shared_ptr<IImageSource> src, uint8_t th, 
 Image ThresholdFilter::applyFilter(Image &&in) const {
     Image out(in.getWidth(), in.getHeight());
     for (int i = 0; i < in.getWidth() * in.getHeight(); ++i) {
-        uint8_t v = in.at(i);
-        uint8_t res = (v >= threshold) ? 255 : 0;
-        if (invert) res = 255 - res;
+        Pixel v = in.at(i);
+        Pixel res = (v >= threshold) ? Pixel::maxBrightness() : Pixel::minBrightness();
+        if (invert) {
+            res = res.invert();
+        }
         out.at(i) = res;
     }
     return out;

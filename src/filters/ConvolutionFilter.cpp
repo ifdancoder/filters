@@ -4,6 +4,11 @@
 
 #include "filters/ConvolutionFilter.h"
 
+#include <algorithm>
+#include <cmath>
+
+#include "core/Pixel.h"
+
 ConvolutionFilter::ConvolutionFilter(std::shared_ptr<IImageSource> src,
                       const std::vector<std::vector<double> > &kern,
                       int pad)
@@ -12,9 +17,9 @@ ConvolutionFilter::ConvolutionFilter(std::shared_ptr<IImageSource> src,
     kW = kH ? (int) kernel[0].size() : 0;
 }
 
-[[nodiscard]] uint8_t ConvolutionFilter::sample(const Image &img, int x, int y) const {
+[[nodiscard]] Pixel ConvolutionFilter::sample(const Image &img, int x, int y) const {
     if (x < 0 || x >= img.getWidth() || y < 0 || y >= img.getHeight()) {
-        if (padMode == 0) return 0;
+        if (padMode == 0) return Pixel(0);
         x = std::clamp(x, 0, img.getWidth() - 1);
         y = std::clamp(y, 0, img.getHeight() - 1);
         return img.at(x, y);
@@ -29,18 +34,16 @@ Image ConvolutionFilter::applyFilter(Image &&in) const {
 
     for (int y = 0; y < in.getHeight(); ++y) {
         for (int x = 0; x < in.getWidth(); ++x) {
-            double sum = 0.0;
+            Pixel sum = Pixel();
             for (int ky = 0; ky < kH; ++ky) {
                 for (int kx = 0; kx < kW; ++kx) {
                     int ix = x + (kx - kcx);
                     int iy = y + (ky - kcy);
-                    uint8_t s = sample(in, ix, iy);
-                    sum += kernel[ky][kx] * static_cast<double>(s);
+                    Pixel s = sample(in, ix, iy);
+                    sum += kernel[ky][kx] * s;
                 }
             }
-            int v = int(std::round(sum));
-            v = std::clamp(v, 0, 255);
-            out.at(x, y) = static_cast<uint8_t>(v);
+            out.at(x, y) = sum;
         }
     }
     return out;

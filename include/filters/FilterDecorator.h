@@ -14,11 +14,11 @@ protected:
     std::shared_ptr<IImageSource> inner;
 
 public:
-    FilterDecorator(std::shared_ptr<IImageSource> src);
+    explicit FilterDecorator(std::shared_ptr<IImageSource> src);
 
-    virtual ~FilterDecorator() = default;
+    ~FilterDecorator() override = default;
 
-    [[nodiscard]] Image getImage() const;
+    [[nodiscard]] Image getImage() const override;
 
     virtual Image applyFilter(Image &&in) const = 0;
 };

@@ -5,8 +5,7 @@
 #ifndef FILTERS_CONVOLUTIONFILTER_H
 #define FILTERS_CONVOLUTIONFILTER_H
 
-#include <algorithm>
-#include <cmath>
+#include <core/Pixel.h>
 
 #include "FilterDecorator.h"
 
@@ -21,7 +20,7 @@ public:
                       const std::vector<std::vector<double>> &kern,
                       int pad = 1);
 
-    [[nodiscard]] uint8_t sample(const Image &img, int x, int y) const;
+    [[nodiscard]] Pixel sample(const Image &img, int x, int y) const;
 
     Image applyFilter(Image &&in) const override;
 };

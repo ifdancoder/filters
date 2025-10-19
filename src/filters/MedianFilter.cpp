@@ -3,7 +3,7 @@
 //
 
 #include "filters/MedianFilter.h"
-
+#include "core/Pixel.h"
 #include <algorithm>
 
 MedianFilter::MedianFilter(std::shared_ptr<IImageSource> src, int r)
@@ -13,7 +13,7 @@ MedianFilter::MedianFilter(std::shared_ptr<IImageSource> src, int r)
 Image MedianFilter::applyFilter(Image &&in) const {
     int ws = 2 * radius + 1;
     Image out(in.getWidth(), in.getHeight());
-    std::vector<uint8_t> window;
+    std::vector<Pixel> window;
     window.reserve(ws * ws);
 
     for (int y = 0; y < in.getHeight(); ++y) {

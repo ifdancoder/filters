@@ -13,7 +13,7 @@ protected:
     int radius;
 
 public:
-    MedianFilter(std::shared_ptr<IImageSource> src, int r = 1);
+    explicit MedianFilter(std::shared_ptr<IImageSource> src, int r = 1);
 
     Image applyFilter(Image &&in) const override;
 };
