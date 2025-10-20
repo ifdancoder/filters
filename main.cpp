@@ -31,6 +31,7 @@ int main() {
     // manager.applyFilter<GaussianFilter>(1, 29, 0);
     manager.applyFilter<SharpenFilter>(10, 1);
     // manager.applyFilter<DogFilter>(3, 10);
+    // manager.applyFilter<ThresholdFilter>(/*th=*/1, /*inv=*/1);
 
     auto result = manager.saveByEnv();
     return 0;
