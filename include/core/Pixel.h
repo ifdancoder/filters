@@ -76,6 +76,8 @@ public:
 
     [[nodiscard]] double brightness() const;
 
+    void clamp();
+
     [[nodiscard]] Pixel invert() const;
 };
 

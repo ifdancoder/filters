@@ -114,6 +114,12 @@ double Pixel::brightness() const {
     return (r + g + b) / 3.0f;
 }
 
+void Pixel::clamp() {
+    r = static_cast<uint8_t>(std::clamp(static_cast<double>(r), 0.0, 255.0));
+    g = static_cast<uint8_t>(std::clamp(static_cast<double>(g), 0.0, 255.0));
+    b = static_cast<uint8_t>(std::clamp(static_cast<double>(b), 0.0, 255.0));
+}
+
 Pixel Pixel::invert() const {
     return Pixel(255 - r, 255 - g, 255 - b);
 }

@@ -43,6 +43,7 @@ Image ConvolutionFilter::applyFilter(Image &&in) const {
                     sum += kernel[ky][kx] * s;
                 }
             }
+            sum.clamp();
             out.at(x, y) = sum;
         }
     }

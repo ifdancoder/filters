@@ -9,26 +9,20 @@
 #include <memory>
 #include <vector>
 
+#include "ConvolutionFilter.h"
 #include "FilterDecorator.h"
 
-class GaussianFilter : public FilterDecorator {
-private:
-    std::vector<std::vector<double>> kernel;
-    int kW, kH;
-    int padMode;
+class GaussianFilter : public ConvolutionFilter {
+protected:
     double sigma;
 
-    void createGaussianKernel(int size, double sigma);
-
 public:
+    static std::vector<std::vector<double>>  createGaussianKernel(int size, double sigma);
+
     explicit GaussianFilter(std::shared_ptr<IImageSource> src,
                    double sigma = 1.0,
                    int kernelSize = 0,
                    int pad = 1);
-
-    [[nodiscard]] Pixel sample(const Image &img, int x, int y) const;
-
-    Image applyFilter(Image &&in) const override;
 };
 
 #endif //FILTERS_GAUSSIANFILTER_H
