@@ -62,6 +62,9 @@ add_executable(
 
         include/core/ImageManager.h
         src/core/ImageManager.cpp
+
+        src/filters/GaussianFilter.cpp
+        include/filters/GaussianFilter.h
 )
 
 target_link_libraries(filters ${OpenCV_LIBS} ${HDF5_LIBRARIES})

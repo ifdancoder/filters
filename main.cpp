@@ -12,6 +12,7 @@
 #include "filters/ThresholdFilter.h"
 
 #include "core/ImageManager.h"
+#include "filters/GaussianFilter.h"
 
 int main() {
     ImageManager manager = ImageManager::getInstance();
@@ -25,7 +26,7 @@ int main() {
 
     manager.applyFilter<ConvolutionFilter>(box3, /*padMode=*/1);
     manager.applyFilter<MedianFilter>(/*radius=*/1);
-    manager.applyFilter<ThresholdFilter>(/*threshold=*/130);
+    manager.applyFilter<GaussianFilter>(5.0, 29, 0);
 
     auto result = manager.saveByEnv();
     return 0;
