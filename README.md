@@ -6,11 +6,61 @@
 
 Этот проект предоставляет набор фильтров для обработки изображений, включая:
 - **Сверточные фильтры** (Convolution Filter)
-- **Гауссов фильтр** (Gaussian Filter) 
+- **Гауссов фильтр** (Gaussian Filter) (На основе Convolution Filter)
 - **Медианный фильтр** (Median Filter)
 - **Фильтр повышения резкости** (Sharpen Filter)
 - **DoG фильтр** (Difference of Gaussians)
 - **Пороговый фильтр** (Threshold Filter)
+
+## Примеры
+
+### Входное изображение:
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/input/input.jpg" height="350">
+</p>
+
+### Выходные изображения:
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/convolution.jpg" height="350">
+</p>
+
+#### **Сверточные фильтры** (Convolution Filter)
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/convolution.jpg" height="350">
+</p>
+
+#### **Гауссов фильтр** (Gaussian Filter)
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/gaussian.jpg" height="350">
+</p>
+
+#### **Медианный фильтр** (Median Filter)
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/median.jpg" height="350">
+</p>
+
+#### **Фильтр повышения резкости** (Sharpen Filter)
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/sharpen.jpg" height="350">
+</p>
+
+#### **DoG фильтр** (Difference of Gaussians)
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/dog.jpg" height="350">
+</p>
+
+#### **Пороговый фильтр** (Threshold Filter)
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/threshold.jpg" height="350">
+</p>
 
 ## Архитектура
 
