@@ -21,6 +21,8 @@ public:
               double sigma2 = 2.0,
               int kernelSize = 0,
               int pad = 1);
+
+    Image applyFilter(Image &&in) const override;
 };
 
 
