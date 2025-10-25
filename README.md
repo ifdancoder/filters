@@ -28,11 +28,24 @@
 
 #### **Сверточные фильтры** (Convolution Filter)
 
+```cpp
+std::vector<std::vector<double>> box3 = {
+    {1.0/9, 1.0/9, 1.0/9},
+    {1.0/9, 1.0/9, 1.0/9},
+    {1.0/9, 1.0/9, 1.0/9}
+};
+manager.applyFilter<ConvolutionFilter>(/*kernel=*/box3, /*padding=*/1);
+```
+
 <p align="center">
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/convolution.jpg" height="350">
 </p>
 
 #### **Гауссов фильтр** (Gaussian Filter)
+
+```cpp
+manager.applyFilter<GaussianFilter>(/*sigma=*/1, /*kernel_size=*/29, /*padding=*/0);
+```
 
 <p align="center">
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/gaussian.jpg" height="350">
@@ -40,11 +53,19 @@
 
 #### **Медианный фильтр** (Median Filter)
 
+```cpp
+manager.applyFilter<MedianFilter>(/*radius=*/1);
+```
+
 <p align="center">
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/median.jpg" height="350">
 </p>
 
 #### **Фильтр повышения резкости** (Sharpen Filter)
+
+```cpp
+manager.applyFilter<SharpenFilter>(/*strength=*/10, /*padding=*/1);
+```
 
 <p align="center">
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/sharpen.jpg" height="350">
@@ -52,11 +73,19 @@
 
 #### **DoG фильтр** (Difference of Gaussians)
 
+```cpp
+manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/10, /*kernel_size=*/1, /*padding=*/1);
+```
+
 <p align="center">
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/dog.jpg" height="350">
 </p>
 
 #### **Пороговый фильтр** (Threshold Filter)
+
+```cpp
+manager.applyFilter<ThresholdFilter>(/*threshold=*/45, /*inversion=*/1);
+```
 
 <p align="center">
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/threshold.jpg" height="350">
@@ -147,43 +176,69 @@ std::vector<std::vector<double>> kernel = {
     {1.0/9, 1.0/9, 1.0/9},
     {1.0/9, 1.0/9, 1.0/9}
 };
-manager.applyFilter<ConvolutionFilter>(kernel, 1);
+manager.applyFilter<ConvolutionFilter>(/*kernel=*/kernel, /*padding=*/1);
 ```
+
+**Параметры:**
+- `kernel` - матрица ядра свертки
+- `padding` - режим обработки границ (0 = нулевое заполнение, 1 = отражение)
 
 ### 2. GaussianFilter
 Гауссов фильтр для размытия изображения.
 
 ```cpp
-manager.applyFilter<GaussianFilter>(sigma, kernelSize, padMode);
+manager.applyFilter<GaussianFilter>(/*sigma=*/1, /*kernel_size=*/29, /*padding=*/0);
 ```
+
+**Параметры:**
+- `sigma` - стандартное отклонение гауссова распределения (сила размытия)
+- `kernel_size` - размер ядра (если 0, вычисляется автоматически)
+- `padding` - режим обработки границ
 
 ### 3. MedianFilter
 Медианный фильтр для удаления шума.
 
 ```cpp
-manager.applyFilter<MedianFilter>(radius);
+manager.applyFilter<MedianFilter>(/*radius=*/1);
 ```
+
+**Параметры:**
+- `radius` - радиус окна для медианной фильтрации
 
 ### 4. SharpenFilter
 Фильтр повышения резкости.
 
 ```cpp
-manager.applyFilter<SharpenFilter>(strength, padMode);
+manager.applyFilter<SharpenFilter>(/*strength=*/10, /*padding=*/1);
 ```
+
+**Параметры:**
+- `strength` - сила повышения резкости
+- `padding` - режим обработки границ
 
 ### 5. DogFilter
 Difference of Gaussians - фильтр для выделения границ.
 
 ```cpp
-manager.applyFilter<DogFilter>(sigma1, sigma2);
+manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/10, /*kernel_size=*/1, /*padding=*/1);
 ```
+
+**Параметры:**
+- `sigma1` - стандартное отклонение первого гауссова ядра
+- `sigma2` - стандартное отклонение второго гауссова ядра (должно быть больше sigma1)
+- `kernel_size` - размер ядра (если 0, вычисляется автоматически)
+- `padding` - режим обработки границ
 
 ### 6. ThresholdFilter
 Пороговый фильтр для бинаризации.
 
 ```cpp
-manager.applyFilter<ThresholdFilter>(threshold, invert);
+manager.applyFilter<ThresholdFilter>(/*threshold=*/45, /*inversion=*/1);
 ```
+
+**Параметры:**
+- `threshold` - пороговое значение (0-255)
+- `inversion` - инверсия результата (0 = обычная бинаризация, 1 = инвертированная)
 
 ## Структура проекта
 
