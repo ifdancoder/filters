@@ -71,6 +71,43 @@ add_executable(
 
         include/filters/DogFilter.h
         src/filters/DogFilter.cpp
+
+        # Морфологические фильтры
+        include/filters/StructuringElement.h
+        src/filters/StructuringElement.cpp
+
+        include/filters/MorphologicalFilter.h
+        src/filters/MorphologicalFilter.cpp
+
+        include/filters/BinaryErosionFilter.h
+        src/filters/BinaryErosionFilter.cpp
+
+        include/filters/BinaryDilationFilter.h
+        src/filters/BinaryDilationFilter.cpp
+
+        include/filters/BinaryOpeningFilter.h
+        src/filters/BinaryOpeningFilter.cpp
+
+        include/filters/BinaryClosingFilter.h
+        src/filters/BinaryClosingFilter.cpp
+
+        include/filters/GrayscaleErosionFilter.h
+        src/filters/GrayscaleErosionFilter.cpp
+
+        include/filters/GrayscaleDilationFilter.h
+        src/filters/GrayscaleDilationFilter.cpp
+
+        include/filters/GrayscaleOpeningFilter.h
+        src/filters/GrayscaleOpeningFilter.cpp
+
+        include/filters/GrayscaleClosingFilter.h
+        src/filters/GrayscaleClosingFilter.cpp
+
+        include/filters/EdgeDetectionFilter.h
+        src/filters/EdgeDetectionFilter.cpp
+
+        include/filters/MorphologicalGradientFilter.h
+        src/filters/MorphologicalGradientFilter.cpp
 )
 
 target_link_libraries(filters ${OpenCV_LIBS} ${HDF5_LIBRARIES})

@@ -11,6 +11,10 @@
 - **Фильтр повышения резкости** (Sharpen Filter)
 - **DoG фильтр** (Difference of Gaussians)
 - **Пороговый фильтр** (Threshold Filter)
+- **Морфологические фильтры** (Morphological Filters):
+  - Бинарные: эрозия, дилатация, открытие, закрытие
+  - Полутоновые: эрозия, дилатация, открытие, закрытие
+  - Выделение контуров и многомасштабный градиент
 
 ## Примеры
 
@@ -240,6 +244,107 @@ manager.applyFilter<ThresholdFilter>(/*threshold=*/45, /*inversion=*/1);
 - `threshold` - пороговое значение (0-255)
 - `inversion` - инверсия результата (0 = обычная бинаризация, 1 = инвертированная)
 
+## Морфологические фильтры
+
+### 7. BinaryErosionFilter
+Бинарная эрозия - сжимает объекты и удаляет мелкие детали.
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<BinaryErosionFilter>(/*structuring_element=*/se);
+```
+
+**Параметры:**
+- `structuring_element` - структурный элемент (квадрат, крест, диск)
+
+### 8. BinaryDilationFilter
+Бинарная дилатация - расширяет объекты и заполняет пробелы.
+
+```cpp
+auto se = StructuringElement::createCross(3);
+manager.applyFilter<BinaryDilationFilter>(/*structuring_element=*/se);
+```
+
+### 9. BinaryOpeningFilter
+Бинарное открытие - эрозия + дилатация. Удаляет шум "соль".
+
+```cpp
+auto se = StructuringElement::createDisk(3);
+manager.applyFilter<BinaryOpeningFilter>(/*structuring_element=*/se);
+```
+
+### 10. BinaryClosingFilter
+Бинарное закрытие - дилатация + эрозия. Удаляет шум "перец".
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<BinaryClosingFilter>(/*structuring_element=*/se);
+```
+
+### 11. GrayscaleErosionFilter
+Полутоновая эрозия - находит минимум в области структурного элемента.
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<GrayscaleErosionFilter>(/*structuring_element=*/se);
+```
+
+### 12. GrayscaleDilationFilter
+Полутоновая дилатация - находит максимум в области структурного элемента.
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<GrayscaleDilationFilter>(/*structuring_element=*/se);
+```
+
+### 13. GrayscaleOpeningFilter
+Полутоновое открытие - сглаживает контуры, удаляет пики.
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<GrayscaleOpeningFilter>(/*structuring_element=*/se);
+```
+
+### 14. GrayscaleClosingFilter
+Полутоновое закрытие - заполняет впадины, сглаживает контуры.
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<GrayscaleClosingFilter>(/*structuring_element=*/se);
+```
+
+### 15. EdgeDetectionFilter
+Выделение контуров - разность между дилатацией и эрозией.
+
+```cpp
+auto se = StructuringElement::createSquare(3);
+manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/se);
+```
+
+### 16. MorphologicalGradientFilter
+Многомасштабный морфологический градиент - использует несколько размеров структурных элементов.
+
+```cpp
+manager.applyFilter<MorphologicalGradientFilter>();
+```
+
+**Параметры:** Нет (использует встроенные структурные элементы 3x3, 5x5, 7x7)
+
+## Структурные элементы
+
+### Создание структурных элементов:
+
+```cpp
+// Квадратный элемент 3x3
+auto square = StructuringElement::createSquare(3);
+
+// Крестообразный элемент 3x3
+auto cross = StructuringElement::createCross(3);
+
+// Диск радиусом 3
+auto disk = StructuringElement::createDisk(3);
+```
+
 ## Структура проекта
 
 ```
@@ -258,7 +363,18 @@ filters/
 │       ├── MedianFilter.h
 │       ├── SharpenFilter.h
 │       ├── DogFilter.h
-│       └── ThresholdFilter.h
+│       ├── ThresholdFilter.h
+│       ├── StructuringElement.h
+│       ├── BinaryErosionFilter.h
+│       ├── BinaryDilationFilter.h
+│       ├── BinaryOpeningFilter.h
+│       ├── BinaryClosingFilter.h
+│       ├── GrayscaleErosionFilter.h
+│       ├── GrayscaleDilationFilter.h
+│       ├── GrayscaleOpeningFilter.h
+│       ├── GrayscaleClosingFilter.h
+│       ├── EdgeDetectionFilter.h
+│       └── MorphologicalGradientFilter.h
 ├── src/
 │   ├── core/
 │   └── filters/
