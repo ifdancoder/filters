@@ -8,6 +8,8 @@
 
 #include <filesystem>
 
+class StructuringElement;
+
 ImageManager::ImageManager() : denv(dotenv("./.env")) {
 }
 
@@ -41,8 +43,9 @@ bool ImageManager::load(const std::string &filepath) {
 
     sourceMatImg = cv::imread(used_filepath, cv::IMREAD_COLOR);
 
-    Image tmp_image = Image(sourceMatImg);
+    std::shared_ptr<Image> tmp_image = std::make_shared<Image>(sourceMatImg);
 
+    sourceImg = std::shared_ptr<BaseImage>(new BaseImage(tmp_image));
     sourceImg = std::make_shared<BaseImage>(tmp_image);
 
     resultImg = sourceImg;
@@ -51,6 +54,14 @@ bool ImageManager::load(const std::string &filepath) {
         std::cerr << "Ошибка: не удалось загрузить изображение: " << used_filepath << std::endl;
         return false;
     }
+    return true;
+}
+
+bool ImageManager::load(const std::shared_ptr<Image>& inputImage) {
+    sourceImg = std::make_shared<BaseImage>(inputImage);
+
+    resultImg = sourceImg;
+
     return true;
 }
 
@@ -90,9 +101,9 @@ bool ImageManager::save(const std::string &outputPath) const {
 
     std::string used_filepath = "./" + outputPath;
 
-    Image tmp_image = resultImg->getImage();
+    std::shared_ptr<Image> tmp_image = resultImg->getImage();
 
-    cv::Mat image = tmp_image.toMat();
+    cv::Mat image = tmp_image->toMat();
 
     if (image.empty()) {
         std::cerr << "Ошибка: нечего сохранять." << std::endl;

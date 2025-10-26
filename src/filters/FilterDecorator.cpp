@@ -6,7 +6,6 @@
 
 FilterDecorator::FilterDecorator(std::shared_ptr<IImageSource> src) : inner(std::move(src)) {}
 
-Image FilterDecorator::getImage() const {
-    Image in = inner->getImage();
-    return applyFilter(std::move(in));
+std::shared_ptr<Image> FilterDecorator::getImage() const {
+    return applyFilter(inner->getImage());
 }

@@ -11,7 +11,7 @@ class IImageSource {
 public:
     virtual ~IImageSource() = default;
 
-    [[nodiscard]] virtual Image getImage() const = 0;
+    [[nodiscard]] virtual std::shared_ptr<Image> getImage() const = 0;
 };
 
 

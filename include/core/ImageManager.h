@@ -10,6 +10,7 @@
 #include "IImageSource.h"
 #include <opencv2/opencv.hpp>
 
+#include "StructuringElement.h"
 #include "filters/BaseImage.h"
 
 
@@ -29,6 +30,7 @@ public:
     static ImageManager &getInstance();
 
     bool load(const std::string &filepath);
+    bool load(const std::shared_ptr<Image>& inputImage);
     bool loadByEnv();
 
     static bool prepareDirByPath(const std::string &path);

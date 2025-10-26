@@ -4,9 +4,9 @@
 
 #include "filters/BaseImage.h"
 
-BaseImage::BaseImage(Image i) : img(std::move(i)) {
+BaseImage::BaseImage(const std::shared_ptr<Image>& i) : img(i) {
 }
 
-[[nodiscard]] Image BaseImage::getImage() const {
+[[nodiscard]] std::shared_ptr<Image> BaseImage::getImage() const {
     return img;
 }

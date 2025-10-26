@@ -12,7 +12,7 @@ class MorphologicalGradientFilter : public FilterDecorator {
 public:
     explicit MorphologicalGradientFilter(std::shared_ptr<IImageSource> src);
 
-    Image applyFilter(Image &&in) const override;
+    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 #endif //FILTERS_MORPHOLOGICALGRADIENTFILTER_H

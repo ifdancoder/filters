@@ -12,12 +12,12 @@
 
 class BaseImage : public IImageSource {
 protected:
-    Image img;
+    std::shared_ptr<Image> img;
 
 public:
-    explicit BaseImage(Image i);
+    explicit BaseImage(const std::shared_ptr<Image>& i);
 
-    [[nodiscard]] Image getImage() const override;
+    [[nodiscard]] std::shared_ptr<Image> getImage() const override;
 };
 
 

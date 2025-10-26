@@ -85,6 +85,10 @@ const Pixel& Image::at(int x, int y) const {
     return at(y * w + x);
 }
 
+std::shared_ptr<Image> Image::getShared() {
+    return shared_from_this();
+}
+
 int Image::getWidth() const {
     return w;
 }

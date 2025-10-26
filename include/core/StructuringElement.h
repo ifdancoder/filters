@@ -8,31 +8,30 @@
 #include <vector>
 #include <memory>
 
-class StructuringElement {
+#include "Image.h"
+
+class StructuringElement: public Image {
 public:
     enum Type {
         SQUARE,
-        CROSS,
+        RHOMBUS,
         DISK
     };
 
 private:
-    std::vector<std::vector<bool>> kernel;
-    int width, height;
     int centerX, centerY;
 
 public:
+    StructuringElement(int w, int h, int centerXInput, int centerYInput);
     StructuringElement(Type type, int size);
-    
-    [[nodiscard]] int getWidth() const { return width; }
-    [[nodiscard]] int getHeight() const { return height; }
+
     [[nodiscard]] int getCenterX() const { return centerX; }
     [[nodiscard]] int getCenterY() const { return centerY; }
-    
-    [[nodiscard]] bool at(int x, int y) const;
+
+    void setCenter(int x, int y);
     
     static std::shared_ptr<StructuringElement> createSquare(int size);
-    static std::shared_ptr<StructuringElement> createCross(int size);
+    static std::shared_ptr<StructuringElement> createRhombus(int size);
     static std::shared_ptr<StructuringElement> createDisk(int radius);
 };
 

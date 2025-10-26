@@ -8,32 +8,33 @@
 #include <cmath>
 
 #include "core/Pixel.h"
+#include "core/StructuringElement.h"
 
 ConvolutionFilter::ConvolutionFilter(std::shared_ptr<IImageSource> src,
-                      const std::vector<std::vector<double> > &kern,
-                      int pad)
+                                     const std::vector<std::vector<double> > &kern,
+                                     int pad)
         : FilterDecorator(std::move(src)), kernel(kern), padMode(pad) {
     kH = (int) kernel.size();
     kW = kH ? (int) kernel[0].size() : 0;
 }
 
-[[nodiscard]] Pixel ConvolutionFilter::sample(const Image &img, int x, int y) const {
-    if (x < 0 || x >= img.getWidth() || y < 0 || y >= img.getHeight()) {
+[[nodiscard]] Pixel ConvolutionFilter::sample(const std::shared_ptr<Image> &img, int x, int y) const {
+    if (x < 0 || x >= img->getWidth() || y < 0 || y >= img->getHeight()) {
         if (padMode == 0) return Pixel(0);
-        x = std::clamp(x, 0, img.getWidth() - 1);
-        y = std::clamp(y, 0, img.getHeight() - 1);
-        return img.at(x, y);
+        x = std::clamp(x, 0, img->getWidth() - 1);
+        y = std::clamp(y, 0, img->getHeight() - 1);
+        return img->at(x, y);
     }
-    return img.at(x, y);
+    return img->at(x, y);
 }
 
-Image ConvolutionFilter::applyFilter(Image &&in) const {
-    Image out(in.getWidth(), in.getHeight());
+std::shared_ptr<Image> ConvolutionFilter::applyFilter(std::shared_ptr<Image> in) const {
+    auto out = std::make_shared<Image>(in->getWidth(), in->getHeight());
     int kcx = kW / 2;
     int kcy = kH / 2;
 
-    for (int y = 0; y < in.getHeight(); ++y) {
-        for (int x = 0; x < in.getWidth(); ++x) {
+    for (int y = 0; y < in->getHeight(); ++y) {
+        for (int x = 0; x < in->getWidth(); ++x) {
             Pixel sum = Pixel();
             for (int ky = 0; ky < kH; ++ky) {
                 for (int kx = 0; kx < kW; ++kx) {
@@ -44,7 +45,7 @@ Image ConvolutionFilter::applyFilter(Image &&in) const {
                 }
             }
             sum.clamp();
-            out.at(x, y) = sum;
+            out->at(x, y) = sum;
         }
     }
     return out;

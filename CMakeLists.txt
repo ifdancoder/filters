@@ -73,8 +73,8 @@ add_executable(
         src/filters/DogFilter.cpp
 
         # Морфологические фильтры
-        include/filters/StructuringElement.h
-        src/filters/StructuringElement.cpp
+        include/core/StructuringElement.h
+        src/core/StructuringElement.cpp
 
         include/filters/MorphologicalFilter.h
         src/filters/MorphologicalFilter.cpp

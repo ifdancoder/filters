@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "core/IImageSource.h"
+#include "core/StructuringElement.h"
 
 
 class FilterDecorator : public IImageSource {
@@ -18,9 +19,9 @@ public:
 
     ~FilterDecorator() override = default;
 
-    [[nodiscard]] Image getImage() const override;
+    [[nodiscard]] std::shared_ptr<Image> getImage() const override;
 
-    virtual Image applyFilter(Image &&in) const = 0;
+    virtual std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const = 0;
 };
 
 

@@ -8,15 +8,15 @@ ThresholdFilter::ThresholdFilter(std::shared_ptr<IImageSource> src, uint8_t th, 
     : FilterDecorator(std::move(src)), threshold(th), invert(inv) {
 }
 
-Image ThresholdFilter::applyFilter(Image &&in) const {
-    Image out(in.getWidth(), in.getHeight());
-    for (int i = 0; i < in.getWidth() * in.getHeight(); ++i) {
-        Pixel v = in.at(i);
+std::shared_ptr<Image> ThresholdFilter::applyFilter(std::shared_ptr<Image> in) const {
+    auto out = std::make_shared<Image>(in->getWidth(), in->getHeight());
+    for (int i = 0; i < in->getWidth() * in->getHeight(); ++i) {
+        Pixel v = in->at(i);
         Pixel res = (v >= threshold) ? Pixel::maxBrightness() : Pixel::minBrightness();
         if (invert) {
             res = res.invert();
         }
-        out.at(i) = res;
+        out->at(i) = res;
     }
     return out;
 }

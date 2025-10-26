@@ -11,12 +11,12 @@ BinaryOpeningFilter::BinaryOpeningFilter(std::shared_ptr<IImageSource> src,
     : MorphologicalFilter(std::move(src), std::move(se)) {
 }
 
-Image BinaryOpeningFilter::applyFilter(Image &&in) const {
+std::shared_ptr<Image> BinaryOpeningFilter::applyFilter(std::shared_ptr<Image> in) const {
     auto erosionFilter = std::make_shared<BinaryErosionFilter>(nullptr, structuringElement);
-    Image eroded = erosionFilter->applyFilter(Image(in));
+    std::shared_ptr<Image> eroded = erosionFilter->applyFilter(in);
 
     auto dilationFilter = std::make_shared<BinaryDilationFilter>(nullptr, structuringElement);
-    Image result = dilationFilter->applyFilter(std::move(eroded));
+    std::shared_ptr<Image> result = dilationFilter->applyFilter(std::move(eroded));
 
     return result;
 }

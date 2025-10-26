@@ -8,6 +8,7 @@
 #include <core/Pixel.h>
 
 #include "FilterDecorator.h"
+#include "core/StructuringElement.h"
 
 class ConvolutionFilter : public FilterDecorator {
 protected:
@@ -20,9 +21,9 @@ public:
                       const std::vector<std::vector<double>> &kern,
                       int pad = 1);
 
-    [[nodiscard]] Pixel sample(const Image &img, int x, int y) const;
+    [[nodiscard]] Pixel sample(const std::shared_ptr<Image> &img, int x, int y) const;
 
-    Image applyFilter(Image &&in) const override;
+    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 

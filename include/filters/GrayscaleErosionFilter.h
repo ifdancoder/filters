@@ -9,10 +9,10 @@
 
 class GrayscaleErosionFilter : public MorphologicalFilter {
 public:
-    explicit GrayscaleErosionFilter(std::shared_ptr<IImageSource> src, 
+    explicit GrayscaleErosionFilter(std::shared_ptr<IImageSource> src,
                                    std::shared_ptr<StructuringElement> se);
 
-    Image applyFilter(Image &&in) const override;
+    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 #endif //FILTERS_GRAYSCALEEROSIONFILTER_H

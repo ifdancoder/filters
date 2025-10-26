@@ -5,6 +5,7 @@
 #ifndef FILTERS_DOGFILTER_H
 #define FILTERS_DOGFILTER_H
 #include "FilterDecorator.h"
+#include "core/StructuringElement.h"
 
 
 class DogFilter : public FilterDecorator {
@@ -22,7 +23,7 @@ public:
               int kernelSize = 0,
               int pad = 1);
 
-    Image applyFilter(Image &&in) const override;
+    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 

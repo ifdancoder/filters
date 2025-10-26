@@ -11,12 +11,12 @@ GrayscaleClosingFilter::GrayscaleClosingFilter(std::shared_ptr<IImageSource> src
     : MorphologicalFilter(std::move(src), std::move(se)) {
 }
 
-Image GrayscaleClosingFilter::applyFilter(Image &&in) const {
+std::shared_ptr<Image> GrayscaleClosingFilter::applyFilter(std::shared_ptr<Image> in) const {
     auto dilationFilter = std::make_shared<GrayscaleDilationFilter>(nullptr, structuringElement);
-    Image dilated = dilationFilter->applyFilter(Image(in));
+    std::shared_ptr<Image> dilated = dilationFilter->applyFilter(in);
 
     auto erosionFilter = std::make_shared<GrayscaleErosionFilter>(nullptr, structuringElement);
-    Image result = erosionFilter->applyFilter(std::move(dilated));
+    std::shared_ptr<Image> result = erosionFilter->applyFilter(std::move(dilated));
 
     return result;
 }
