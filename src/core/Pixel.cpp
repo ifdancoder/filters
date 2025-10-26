@@ -111,7 +111,7 @@ bool Pixel::operator!=(const Pixel &other) const {
 }
 
 double Pixel::brightness() const {
-    return (r + g + b) / 3.0f;
+    return (r + g + b) / 3.0;
 }
 
 void Pixel::clamp() {
