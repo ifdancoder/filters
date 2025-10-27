@@ -8,8 +8,8 @@
 #include "filters/GrayscaleDilationFilter.h"
 #include <algorithm>
 
-MorphologicalGradientFilter::MorphologicalGradientFilter(std::shared_ptr<IImageSource> src)
-    : FilterDecorator(std::move(src)) {
+MorphologicalGradientFilter::MorphologicalGradientFilter(std::shared_ptr<IImageSource> src, StructuringElement::Type t)
+    : FilterDecorator(std::move(src)), _type(t) {
 }
 
 std::shared_ptr<Image> MorphologicalGradientFilter::applyFilter(std::shared_ptr<Image> in) const {
@@ -22,8 +22,7 @@ std::shared_ptr<Image> MorphologicalGradientFilter::applyFilter(std::shared_ptr<
     }
 
     for (int i = 1; i <= 3; ++i) {
-        int size = 2 * i + 1;
-        auto se = StructuringElement::createDisk(size);
+        auto se = StructuringElement::dilated(_type, i);
 
         auto dilationFilter = std::make_shared<GrayscaleDilationFilter>(nullptr, se);
         std::shared_ptr<Image> dilated = dilationFilter->applyFilter(in);

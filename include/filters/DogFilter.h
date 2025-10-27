@@ -23,7 +23,7 @@ public:
               int kernelSize = 0,
               int pad = 1);
 
-    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
+    [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 

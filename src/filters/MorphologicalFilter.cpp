@@ -16,7 +16,7 @@ bool MorphologicalFilter::isPixelInBounds(const std::shared_ptr<Image>& img, int
     return x >= 0 && x < img->getWidth() && y >= 0 && y < img->getHeight();
 }
 
-std::shared_ptr<StructuringElement> MorphologicalFilter::expand_structuring_element(const std::shared_ptr<StructuringElement> &se, const std::shared_ptr<StructuringElement> &se2) {
+std::shared_ptr<StructuringElement> MorphologicalFilter::expandStructuringElement(const std::shared_ptr<StructuringElement> &se, const std::shared_ptr<StructuringElement> &se2) {
     int width = se2->getWidth();
     int height = se2->getHeight();
 

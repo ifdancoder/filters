@@ -12,7 +12,7 @@ public:
     explicit BinaryDilationFilter(std::shared_ptr<IImageSource> src, 
                                  std::shared_ptr<StructuringElement> se);
 
-    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
+    [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 #endif //FILTERS_BINARYDILATIONFILTER_H

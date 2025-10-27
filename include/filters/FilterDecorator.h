@@ -21,7 +21,7 @@ public:
 
     [[nodiscard]] std::shared_ptr<Image> getImage() const override;
 
-    virtual std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const = 0;
+    [[nodiscard]] virtual std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const = 0;
 };
 
 

@@ -9,10 +9,12 @@
 #include <memory>
 
 class MorphologicalGradientFilter : public FilterDecorator {
+protected:
+    StructuringElement::Type _type;
 public:
-    explicit MorphologicalGradientFilter(std::shared_ptr<IImageSource> src);
+    explicit MorphologicalGradientFilter(std::shared_ptr<IImageSource> src, StructuringElement::Type t);
 
-    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
+    [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 #endif //FILTERS_MORPHOLOGICALGRADIENTFILTER_H

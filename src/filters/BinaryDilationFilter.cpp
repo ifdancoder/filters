@@ -18,7 +18,7 @@ std::shared_ptr<Image> BinaryDilationFilter::applyFilter(std::shared_ptr<Image> 
     std::shared_ptr<StructuringElement> tmp_element;
 
     if (structuring_element != nullptr) {
-        tmp_element = expand_structuring_element(std::shared_ptr<StructuringElement>(structuring_element), structuringElement);
+        tmp_element = expandStructuringElement(std::shared_ptr<StructuringElement>(structuring_element), structuringElement);
         processing_image = tmp_element;
     }
     std::shared_ptr<Image> processing_image_shared_ptr = std::shared_ptr<Image>(processing_image);

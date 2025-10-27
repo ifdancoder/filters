@@ -23,7 +23,7 @@ public:
 
     [[nodiscard]] Pixel sample(const std::shared_ptr<Image> &img, int x, int y) const;
 
-    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
+    [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 

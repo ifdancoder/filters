@@ -19,7 +19,7 @@ protected:
     void iterateStructuringElement(const std::shared_ptr<Image>& input, int centerX, int centerY, Func func) const;
 
 public:
-    [[nodiscard]] static std::shared_ptr<StructuringElement> expand_structuring_element(const std::shared_ptr<StructuringElement> &se, const std::shared_ptr<StructuringElement> &se2) ;
+    [[nodiscard]] static std::shared_ptr<StructuringElement> expandStructuringElement(const std::shared_ptr<StructuringElement> &se, const std::shared_ptr<StructuringElement> &se2) ;
 
     explicit MorphologicalFilter(std::shared_ptr<IImageSource> src, 
                                 std::shared_ptr<StructuringElement> se);

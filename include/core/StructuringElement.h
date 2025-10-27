@@ -23,16 +23,20 @@ private:
 
 public:
     StructuringElement(int w, int h, int centerXInput, int centerYInput);
-    StructuringElement(Type type, int size);
+    explicit StructuringElement(Type type);
 
     [[nodiscard]] int getCenterX() const { return centerX; }
     [[nodiscard]] int getCenterY() const { return centerY; }
 
     void setCenter(int x, int y);
     
-    static std::shared_ptr<StructuringElement> createSquare(int size);
-    static std::shared_ptr<StructuringElement> createRhombus(int size);
-    static std::shared_ptr<StructuringElement> createDisk(int radius);
+    static std::shared_ptr<StructuringElement> createSquare();
+    static std::shared_ptr<StructuringElement> createRhombus();
+    static std::shared_ptr<StructuringElement> createDisk();
+
+    std::shared_ptr<StructuringElement> static dilated(Type type, std::shared_ptr<StructuringElement> se, int n);
+    std::shared_ptr<StructuringElement> static dilated(Type type, int n);
+    std::shared_ptr<StructuringElement> static dilated(Type type, std::shared_ptr<StructuringElement> se);
 };
 
 #endif //FILTERS_STRUCTURINGELEMENT_H

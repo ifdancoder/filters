@@ -15,7 +15,7 @@ protected:
 public:
     explicit ThresholdFilter(std::shared_ptr<IImageSource> src, uint8_t th = 128, bool inv = false);
 
-    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
+    [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 #endif //FILTERS_THRESHOLDER_H

@@ -7,6 +7,6 @@
 BaseImage::BaseImage(const std::shared_ptr<Image>& i) : img(i) {
 }
 
-[[nodiscard]] std::shared_ptr<Image> BaseImage::getImage() const {
+std::shared_ptr<Image> BaseImage::getImage() const {
     return img;
 }

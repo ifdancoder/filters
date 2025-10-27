@@ -18,7 +18,7 @@ ConvolutionFilter::ConvolutionFilter(std::shared_ptr<IImageSource> src,
     kW = kH ? (int) kernel[0].size() : 0;
 }
 
-[[nodiscard]] Pixel ConvolutionFilter::sample(const std::shared_ptr<Image> &img, int x, int y) const {
+Pixel ConvolutionFilter::sample(const std::shared_ptr<Image> &img, int x, int y) const {
     if (x < 0 || x >= img->getWidth() || y < 0 || y >= img->getHeight()) {
         if (padMode == 0) return Pixel(0);
         x = std::clamp(x, 0, img->getWidth() - 1);

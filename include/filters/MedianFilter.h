@@ -15,7 +15,7 @@ protected:
 public:
     explicit MedianFilter(std::shared_ptr<IImageSource> src, int r = 1);
 
-    std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
+    [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };
 
 
