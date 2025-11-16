@@ -11,6 +11,8 @@
 - **Фильтр повышения резкости** (Sharpen Filter)
 - **DoG фильтр** (Difference of Gaussians)
 - **Пороговый фильтр** (Threshold Filter)
+- **Фильтр мозаики** (Mosaic Filter)
+- **Фильтр Кэнни** (Canny Edge Detection)
 - **Морфологические фильтры** (Morphological Filters):
   - Бинарные: эрозия, дилатация, открытие, закрытие
   - Полутоновые: эрозия, дилатация, открытие, закрытие
@@ -95,6 +97,26 @@ manager.applyFilter<ThresholdFilter>(/*threshold=*/45, /*inversion=*/1);
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/threshold.jpg" height="350">
 </p>
 
+#### **Mosaic фильтр**
+
+```cpp
+manager.applyFilter<MosaicFilter>(/*size=*/10);
+```
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/mosaic.jpg" height="350">
+</p>
+
+#### **Canny фильтр**
+
+```cpp
+manager.applyFilter<CannyFilter>(/*low=*/40.0, /*high=*/200.0, /*sigma=*/1.4);
+```
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/canny.jpg" height="350">
+</p>
+
 ## Архитектура
 
 Проект использует паттерн **Decorator** для композиции фильтров и **Singleton** для управления изображениями.
@@ -139,7 +161,7 @@ make
 
 ### Настройка через переменные окружения
 
-Создайте файл `.env` в корне проекта:
+Создайте файл `.env` в папке с исполняемым файлом:
 ```env
 INPUT_PATH=input/input.jpg
 OUTPUT_PATH=output/output.jpg
@@ -244,9 +266,38 @@ manager.applyFilter<ThresholdFilter>(/*threshold=*/45, /*inversion=*/1);
 - `threshold` - пороговое значение (0-255)
 - `inversion` - инверсия результата (0 = обычная бинаризация, 1 = инвертированная)
 
+### 7. MosaicFilter
+Фильтр мозаики - разбивает изображение на блоки и заполняет каждый блок средним цветом.
+
+```cpp
+manager.applyFilter<MosaicFilter>(/*size=*/10);
+```
+
+**Параметры:**
+- `size` - размер блока мозаики в пикселях (по умолчанию 10)
+
+### 8. CannyFilter
+Детектор границ Кэнни - многоэтапный алгоритм для обнаружения границ на изображении.
+
+```cpp
+manager.applyFilter<CannyFilter>(/*low=*/40.0, /*high=*/200.0, /*sigma=*/1.4);
+```
+
+**Параметры:**
+- `low` - нижний порог для двойной пороговой фильтрации (по умолчанию 40.0)
+- `high` - верхний порог для двойной пороговой фильтрации (по умолчанию 200.0)
+- `sigma` - параметр размытия по Гауссу для подавления шума (по умолчанию 1.4)
+
+**Этапы алгоритма:**
+1. Размытие по Гауссу для снижения шума
+2. Вычисление градиентов с помощью оператора Собеля
+3. Подавление немаксимумов
+4. Двойная пороговая фильтрация (сильные/слабые границы)
+5. Трассировка границ методом гистерезиса
+
 ## Морфологические фильтры
 
-### 7. BinaryErosionFilter
+### 9. BinaryErosionFilter
 Бинарная эрозия - сжимает объекты и удаляет мелкие детали.
 
 ```cpp
@@ -257,7 +308,7 @@ manager.applyFilter<BinaryErosionFilter>(/*structuring_element=*/se);
 **Параметры:**
 - `structuring_element` - структурный элемент (квадрат, крест, диск)
 
-### 8. BinaryDilationFilter
+### 10. BinaryDilationFilter
 Бинарная дилатация - расширяет объекты и заполняет пробелы.
 
 ```cpp
@@ -265,7 +316,7 @@ auto se = StructuringElement::createCross(3);
 manager.applyFilter<BinaryDilationFilter>(/*structuring_element=*/se);
 ```
 
-### 9. BinaryOpeningFilter
+### 11. BinaryOpeningFilter
 Бинарное открытие - эрозия + дилатация. Удаляет шум "соль".
 
 ```cpp
@@ -273,7 +324,7 @@ auto se = StructuringElement::createDisk(3);
 manager.applyFilter<BinaryOpeningFilter>(/*structuring_element=*/se);
 ```
 
-### 10. BinaryClosingFilter
+### 12. BinaryClosingFilter
 Бинарное закрытие - дилатация + эрозия. Удаляет шум "перец".
 
 ```cpp
@@ -281,7 +332,7 @@ auto se = StructuringElement::createSquare(3);
 manager.applyFilter<BinaryClosingFilter>(/*structuring_element=*/se);
 ```
 
-### 11. GrayscaleErosionFilter
+### 13. GrayscaleErosionFilter
 Полутоновая эрозия - находит минимум в области структурного элемента.
 
 ```cpp
@@ -289,7 +340,7 @@ auto se = StructuringElement::createSquare(3);
 manager.applyFilter<GrayscaleErosionFilter>(/*structuring_element=*/se);
 ```
 
-### 12. GrayscaleDilationFilter
+### 14. GrayscaleDilationFilter
 Полутоновая дилатация - находит максимум в области структурного элемента.
 
 ```cpp
@@ -297,7 +348,7 @@ auto se = StructuringElement::createSquare(3);
 manager.applyFilter<GrayscaleDilationFilter>(/*structuring_element=*/se);
 ```
 
-### 13. GrayscaleOpeningFilter
+### 15. GrayscaleOpeningFilter
 Полутоновое открытие - сглаживает контуры, удаляет пики.
 
 ```cpp
@@ -305,7 +356,7 @@ auto se = StructuringElement::createSquare(3);
 manager.applyFilter<GrayscaleOpeningFilter>(/*structuring_element=*/se);
 ```
 
-### 14. GrayscaleClosingFilter
+### 16. GrayscaleClosingFilter
 Полутоновое закрытие - заполняет впадины, сглаживает контуры.
 
 ```cpp
@@ -313,7 +364,7 @@ auto se = StructuringElement::createSquare(3);
 manager.applyFilter<GrayscaleClosingFilter>(/*structuring_element=*/se);
 ```
 
-### 15. EdgeDetectionFilter
+### 17. EdgeDetectionFilter
 Выделение контуров - разность между дилатацией и эрозией.
 
 ```cpp
@@ -321,7 +372,7 @@ auto se = StructuringElement::createSquare(3);
 manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/se);
 ```
 
-### 16. MorphologicalGradientFilter
+### 18. MorphologicalGradientFilter
 Многомасштабный морфологический градиент - использует несколько размеров структурных элементов.
 
 ```cpp
@@ -364,6 +415,8 @@ filters/
 │       ├── SharpenFilter.h
 │       ├── DogFilter.h
 │       ├── ThresholdFilter.h
+│       ├── MosaicFilter.h
+│       ├── CannyFilter.h
 │       ├── StructuringElement.h
 │       ├── BinaryErosionFilter.h
 │       ├── BinaryDilationFilter.h

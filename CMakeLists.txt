@@ -72,6 +72,12 @@ add_executable(
         include/filters/DogFilter.h
         src/filters/DogFilter.cpp
 
+        include/filters/CannyFilter.h
+        src/filters/CannyFilter.cpp
+
+        include/filters/MosaicFilter.h
+        src/filters/MosaicFilter.cpp
+
         # Морфологические фильтры
         include/core/StructuringElement.h
         src/core/StructuringElement.cpp

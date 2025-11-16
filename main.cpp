@@ -10,6 +10,8 @@
 #include "filters/ConvolutionFilter.h"
 #include "filters/MedianFilter.h"
 #include "filters/ThresholdFilter.h"
+#include "filters/MosaicFilter.h"
+#include "filters/CannyFilter.h"
 
 #include "core/ImageManager.h"
 #include "filters/DogFilter.h"
@@ -58,18 +60,18 @@ int main() {
     // auto current_structuring_element = disk;
     // auto current_big_structuring_element = bigDisk;
     //
-    ImageManager grayscale_manager = ImageManager::getInstance();
-    grayscale_manager.load("input/input3.jpg");
-    //
-    // grayscale_manager.applyFilter<GrayscaleErosionFilter>(/*structuring_element=*/current_structuring_element);
-    // grayscale_manager.applyFilter<GrayscaleDilationFilter>(/*structuring_element=*/current_structuring_element);
-    // grayscale_manager.applyFilter<GrayscaleClosingFilter>(/*structuring_element=*/current_structuring_element);
-    // grayscale_manager.applyFilter<GrayscaleOpeningFilter>(/*structuring_element=*/current_structuring_element);
-    // grayscale_manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/current_structuring_element);
-    grayscale_manager.applyFilter<MorphologicalGradientFilter>(StructuringElement::RHOMBUS);
-    //
-    //
-    auto result2 = grayscale_manager.save("output/grayscale_morphological_gradient_test.jpg");
+    // ImageManager grayscale_manager = ImageManager::getInstance();
+    // grayscale_manager.load("input/input3.jpg");
+    // //
+    // // grayscale_manager.applyFilter<GrayscaleErosionFilter>(/*structuring_element=*/current_structuring_element);
+    // // grayscale_manager.applyFilter<GrayscaleDilationFilter>(/*structuring_element=*/current_structuring_element);
+    // // grayscale_manager.applyFilter<GrayscaleClosingFilter>(/*structuring_element=*/current_structuring_element);
+    // // grayscale_manager.applyFilter<GrayscaleOpeningFilter>(/*structuring_element=*/current_structuring_element);
+    // // grayscale_manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/current_structuring_element);
+    // grayscale_manager.applyFilter<MorphologicalGradientFilter>(StructuringElement::RHOMBUS);
+    // //
+    // //
+    // auto result2 = grayscale_manager.save("output/grayscale_morphological_gradient_test.jpg");
 
     // ImageManager binary_manager = ImageManager::getInstance();
     // binary_manager.load("input/input2.jpg");
@@ -85,5 +87,17 @@ int main() {
     // tmpm.applyFilter<BinaryDilationFilter>(/*structuring_element=*/rhombus_element);
     // tmpm.applyFilter<BinaryDilationFilter>(/*structuring_element=*/rhombus_element);
 
+    ImageManager manager = ImageManager::getInstance();
+    manager.load("input/input.jpg");
+
+    manager.applyFilter<MosaicFilter>(/*size=*/10);
+
+    auto result1 = manager.save("output/mosaic.jpg");
+
+    manager.load("input/input.jpg");
+
+    manager.applyFilter<CannyFilter>(/*low=*/40.0, /*double high=*/200.0, /*double sigma=*/1.4);
+
+    result1 = manager.save("output/mosaic.jpg");
     return 0;
 }
