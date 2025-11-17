@@ -28,10 +28,6 @@
 
 ### Выходные изображения:
 
-<p align="center">
-    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/convolution.jpg" height="350">
-</p>
-
 #### **Сверточные фильтры** (Convolution Filter)
 
 ```cpp
@@ -104,7 +100,7 @@ manager.applyFilter<MosaicFilter>(/*size=*/10);
 ```
 
 <p align="center">
-    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/mosaic.jpg" height="350">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/f85bd752ead6b9b3b1c7527b6fd76f58bbf6d104/output/mosaic.jpg" height="350">
 </p>
 
 #### **Canny фильтр**
@@ -114,7 +110,7 @@ manager.applyFilter<CannyFilter>(/*low=*/40.0, /*high=*/200.0, /*sigma=*/1.4);
 ```
 
 <p align="center">
-    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/canny.jpg" height="350">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/f85bd752ead6b9b3b1c7527b6fd76f58bbf6d104/output/canny.jpg" height="350">
 </p>
 
 ## Архитектура
