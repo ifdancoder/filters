@@ -80,7 +80,7 @@ manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/10, /*kernel_size=*/1, /
 ```
 
 <p align="center">
-    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/65738cdf54615145494f7daed0593ac86383a105/output/dog.jpg" height="350">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog.jpg" height="350">
 </p>
 
 #### **Пороговый фильтр** (Threshold Filter)
@@ -103,14 +103,58 @@ manager.applyFilter<MosaicFilter>(/*size=*/10);
     <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/f85bd752ead6b9b3b1c7527b6fd76f58bbf6d104/output/mosaic.jpg" height="350">
 </p>
 
-#### **Canny фильтр**
+#### **DoG + Вертикальный Sobel фильтры**
 
 ```cpp
-manager.applyFilter<CannyFilter>(/*low=*/40.0, /*high=*/200.0, /*sigma=*/1.4);
+manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
+manager.applyFilter<SobelVerticalFilter>();
 ```
 
 <p align="center">
-    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/f85bd752ead6b9b3b1c7527b6fd76f58bbf6d104/output/canny.jpg" height="350">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_sobel_vertical.jpg" height="350">
+</p>
+
+#### **DoG + Горизонтальный Sobel фильтры**
+
+```cpp
+manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
+manager.applyFilter<SobelHorizontalFilter>();
+```
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_sobel_horizontal.jpg" height="350">
+</p>
+
+#### **DoG + Диагональный Sobel фильтры**
+
+```cpp
+manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
+manager.applyFilter<SobelDiagonalFilter>();
+```
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_sobel_diagonal.jpg" height="350">
+</p>
+
+#### **Canny фильтр**
+
+```cpp
+manager.applyFilter<CannyFilter>(/*low=*/ 5.0, /*high=*/ 60.0);
+```
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/canny.jpg" height="350">
+</p>
+
+#### **DoG + Canny фильтры**
+
+```cpp
+manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
+manager.applyFilter<CannyFilter>(/*low=*/ 5.0, /*high=*/ 60.0);
+```
+
+<p align="center">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
 </p>
 
 ## Архитектура
