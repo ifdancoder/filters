@@ -21,7 +21,7 @@ public:
                       const std::vector<std::vector<double>> &kern,
                       int pad = 1);
 
-    [[nodiscard]] Pixel sample(const std::shared_ptr<Image> &img, int x, int y) const;
+    [[nodiscard]] virtual Pixel sample(const std::shared_ptr<Image> &img, int x, int y) const;
 
     [[nodiscard]] std::shared_ptr<Image> applyFilter(std::shared_ptr<Image> in) const override;
 };

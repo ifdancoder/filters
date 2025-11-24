@@ -28,6 +28,10 @@ public:
 
     [[nodiscard]] int getHeight() const;
 
+    std::shared_ptr<Image> add(const Image &other) const;
+
+    std::shared_ptr<Image> subtract(const Image &other) const;
+
     Pixel &at(int i);
 
     Pixel &at(int x, int y);
@@ -37,6 +41,8 @@ public:
     [[nodiscard]] const Pixel &at(int x, int y) const;
 
     std::shared_ptr<Image> getShared();
+
+    friend std::ostream& operator<<(std::ostream& os, const Image& image);
 };
 
 

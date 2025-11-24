@@ -19,6 +19,15 @@ Pixel Pixel::minBrightness() {
     return Pixel(0, 0, 0);
 }
 
+Pixel Pixel::fromBrightness(double brightness) {
+    brightness = std::clamp(brightness, 0.0, 255.0);
+    return Pixel(brightness, brightness, brightness);
+}
+
+Pixel Pixel::getGrayscaled() {
+    return fromBrightness(std::clamp(brightness(), 0.0, 255.0));
+}
+
 thread_local std::mt19937 generator(std::random_device{}());
 
 uint8_t randomDouble(double min = 0, double max = 255) {

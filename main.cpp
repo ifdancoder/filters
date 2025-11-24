@@ -30,6 +30,9 @@
 #include "filters/GrayscaleClosingFilter.h"
 #include "filters/EdgeDetectionFilter.h"
 #include "filters/MorphologicalGradientFilter.h"
+#include "filters/SobelDiagonalFilter.h"
+#include "filters/SobelHorizontalFilter.h"
+#include "filters/SobelVerticalFilter.h"
 
 int main() {
     // ImageManager manager = ImageManager::getInstance();
@@ -90,14 +93,12 @@ int main() {
     ImageManager manager = ImageManager::getInstance();
     manager.load("input/input.jpg");
 
-    manager.applyFilter<MosaicFilter>(/*size=*/10);
+    manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
 
-    auto result1 = manager.save("output/mosaic.jpg");
+    // manager.applyFilter<SobelHorizontalFilter>();
 
-    manager.load("input/input.jpg");
+    manager.applyFilter<CannyFilter>(/*low=*/ 5.0, /*high=*/ 60.0);
 
-    manager.applyFilter<CannyFilter>(/*low=*/40.0, /*double high=*/200.0, /*double sigma=*/1.4);
-
-    result1 = manager.save("output/mosaic.jpg");
+    auto result1 = manager.save("output/dog_canny.jpg");
     return 0;
 }

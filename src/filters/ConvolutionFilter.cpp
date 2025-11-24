@@ -32,7 +32,6 @@ std::shared_ptr<Image> ConvolutionFilter::applyFilter(std::shared_ptr<Image> in)
     auto out = std::make_shared<Image>(in->getWidth(), in->getHeight());
     int kcx = kW / 2;
     int kcy = kH / 2;
-
     for (int y = 0; y < in->getHeight(); ++y) {
         for (int x = 0; x < in->getWidth(); ++x) {
             Pixel sum = Pixel();

@@ -11,7 +11,7 @@
 Image::Image(int width, int height) : w(width), h(height), data(w * h, Pixel()) {
 }
 
-Image::Image(const cv::Mat& image) {
+Image::Image(const cv::Mat &image) {
     if (image.empty()) {
         w = 0;
         h = 0;
@@ -55,8 +55,8 @@ cv::Mat Image::toMat() const {
 
     for (int y = 0; y < h; ++y) {
         for (int x = 0; x < w; ++x) {
-            const Pixel& pixel = data[y * w + x];
-            auto& matPixel = mat.at<cv::Vec3b>(y, x);
+            const Pixel &pixel = data[y * w + x];
+            auto &matPixel = mat.at<cv::Vec3b>(y, x);
             matPixel[0] = pixel.getR();
             matPixel[1] = pixel.getG();
             matPixel[2] = pixel.getB();
@@ -69,11 +69,11 @@ cv::Mat Image::toMat() const {
     return bgrMat;
 }
 
-Pixel& Image::at(int i) {
+Pixel &Image::at(int i) {
     return data[i];
 }
 
-Pixel& Image::at(int x, int y) {
+Pixel &Image::at(int x, int y) {
     return at(y * w + x);
 }
 
@@ -81,7 +81,7 @@ const Pixel &Image::at(int i) const {
     return data[i];
 }
 
-const Pixel& Image::at(int x, int y) const {
+const Pixel &Image::at(int x, int y) const {
     return at(y * w + x);
 }
 
@@ -95,4 +95,39 @@ int Image::getWidth() const {
 
 int Image::getHeight() const {
     return h;
+}
+
+std::shared_ptr<Image> Image::add(const Image &other) const {
+    if (w != other.w || h != other.h) {
+        throw std::runtime_error("Images must have the same dimensions for addition");
+    }
+
+    auto result = std::make_shared<Image>(w, h);
+    for (int i = 0; i < w * h; ++i) {
+        result->at(i) = at(i) + other.at(i);
+    }
+    return result;
+}
+
+std::shared_ptr<Image> Image::subtract(const Image &other) const {
+    if (w != other.w || h != other.h) {
+        throw std::runtime_error("Images must have the same dimensions for subtraction");
+    }
+
+    auto result = std::make_shared<Image>(w, h);
+    for (int i = 0; i < w * h; ++i) {
+        result->at(i) = at(i) - other.at(i);
+    }
+    return result;
+}
+
+std::ostream &operator<<(std::ostream &os, const Image &image) {
+    for (int y = 0; y < image.h; ++y) {
+        for (int x = 0; x < image.w; ++x) {
+            const Pixel &pixel = image.at(y * image.w + x);
+            os << pixel << ' ';
+        }
+        os << std::endl;
+    }
+    return os;
 }

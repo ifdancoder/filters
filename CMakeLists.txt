@@ -114,6 +114,19 @@ add_executable(
 
         include/filters/MorphologicalGradientFilter.h
         src/filters/MorphologicalGradientFilter.cpp
+
+        include/filters/GrayScaleConvolutionFilter.h
+        src/filters/GrayscaleConvolutionFilter.cpp
+
+        include/filters/SobelHorizontalFilter.h
+        src/filters/SobelHorizontalFilter.cpp
+
+        include/filters/SobelVerticalFilter.h
+        src/filters/SobelVerticalFilter.cpp
+
+        include/filters/SobelDiagonalFilter.h
+        src/filters/SobelDiagonalFilter.cpp
+
 )
 
 target_link_libraries(filters ${OpenCV_LIBS} ${HDF5_LIBRARIES})

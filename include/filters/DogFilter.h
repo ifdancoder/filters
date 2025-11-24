@@ -5,6 +5,7 @@
 #ifndef FILTERS_DOGFILTER_H
 #define FILTERS_DOGFILTER_H
 #include "FilterDecorator.h"
+#include "GaussianFilter.h"
 #include "core/StructuringElement.h"
 
 
@@ -13,10 +14,10 @@ protected:
     double sigma1, sigma2;
     int kernelSize;
     int padMode;
+    std::shared_ptr<GaussianFilter> gaussian1;
+    std::shared_ptr<GaussianFilter> gaussian2;
 
 public:
-    [[nodiscard]] static std::vector<std::vector<double>> createDoGKernel(double sigma1, double sigma2, int size);
-
     explicit DogFilter(std::shared_ptr<IImageSource> src,
               double sigma1 = 1.0,
               double sigma2 = 2.0,

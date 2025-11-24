@@ -17,6 +17,11 @@ public:
 
     static Pixel maxBrightness();
     static Pixel minBrightness();
+
+    static Pixel fromBrightness(double brightness);
+
+    Pixel getGrayscaled();
+
     static Pixel randPixel();
 
     [[nodiscard]] uint8_t getR() const;
