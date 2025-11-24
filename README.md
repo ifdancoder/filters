@@ -320,7 +320,7 @@ manager.applyFilter<MosaicFilter>(/*size=*/10);
 Детектор границ Кэнни - многоэтапный алгоритм для обнаружения границ на изображении.
 
 ```cpp
-manager.applyFilter<CannyFilter>(/*low=*/40.0, /*high=*/200.0, /*sigma=*/1.4);
+manager.applyFilter<CannyFilter>(/*low=*/40.0, /*high=*/200.0);
 ```
 
 **Параметры:**
