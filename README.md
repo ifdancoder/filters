@@ -80,7 +80,7 @@ manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/10, /*kernel_size=*/1, /
 ```
 
 <p align="center">
-    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog.jpg" height="350">
+    <img alt="MySQL" src="https://raw.githubusercontent.com/ifdancoder/filters/4320e36872a8ab7f7c5db7373dedda025bdb8ad1/output/dog.jpg" height="350">
 </p>
 
 #### **Пороговый фильтр** (Threshold Filter)
