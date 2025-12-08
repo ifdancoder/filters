@@ -165,7 +165,7 @@ manager.applyFilter<BinaryErosionFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Фильтр бинарной эрозии" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Фильтр бинарной эрозии" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/binary_erosion.jpg" height="350">
 </p>
 
 #### **Фильтр бинарной дилатации**
@@ -176,7 +176,7 @@ manager.applyFilter<BinaryDilationFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Фильтр бинарной дилатации" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Фильтр бинарной дилатации" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/binary_dilation.jpg" height="350">
 </p>
 
 #### **Оператор закрытия**
@@ -187,7 +187,7 @@ manager.applyFilter<BinaryClosingFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Оператор закрытия" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Оператор закрытия" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/binary_closing.jpg" height="350">
 </p>
 
 #### **Оператор открытия**
@@ -198,7 +198,7 @@ manager.applyFilter<BinaryOpeningFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Оператор открытия" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Оператор открытия" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/binary_opening.jpg" height="350">
 </p>
 
 #### **Фильтр полутоновой эрозии**
@@ -209,7 +209,7 @@ manager.applyFilter<GrayscaleErosionFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Фильтр полутоновой эрозии" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Фильтр полутоновой эрозии" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/grayscale_erosion.jpg" height="350">
 </p>
 
 #### **Фильтр полутоновой дилатации**
@@ -220,7 +220,7 @@ manager.applyFilter<GrayscaleDilationFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Фильтр полутоновой дилатации" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Фильтр полутоновой дилатации" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/grayscale_dilation.jpg" height="350">
 </p>
 
 #### **Оператор закрытия**
@@ -231,7 +231,7 @@ manager.applyFilter<GrayscaleClosingFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Оператор закрытия" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Оператор закрытия" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/grayscale_closing.jpg" height="350">
 </p>
 
 #### **Оператор открытия**
@@ -242,7 +242,7 @@ manager.applyFilter<GrayscaleOpeningFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Оператор открытия" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Оператор открытия" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/grayscale_opening.jpg" height="350">
 </p>
 
 #### **Оператор выделения контуров**
@@ -253,7 +253,7 @@ manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/se);
 ```
 
 <p align="center">
-    <img alt="Оператор выделения контуров" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Оператор выделения контуров" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/grayscale_edge_detection.jpg" height="350">
 </p>
 
 #### **Многомасштабный морфологический градиент**
@@ -263,7 +263,7 @@ manager.applyFilter<MorphologicalGradientFilter>(/*structuring_element=*/Structu
 ```
 
 <p align="center">
-    <img alt="Многомасштабный морфологический градиент" src="https://raw.githubusercontent.com/ifdancoder/filters/5a08fbba2d64c0fc571aa6ab5771835b44409696/output/dog_canny.jpg" height="350">
+    <img alt="Многомасштабный морфологический градиент" src="https://raw.githubusercontent.com/ifdancoder/filters/b17859005a9e4029036d5f1dfbaf54772f8a356b/output/grayscale_morphological_gradient.jpg" height="350">
 </p>
 
 ## Архитектура
