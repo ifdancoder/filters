@@ -416,7 +416,7 @@ manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/se);
 Многомасштабный морфологический градиент - использует несколько размеров структурных элементов.
 
 ```cpp
-manager.applyFilter<MorphologicalGradientFilter>();
+manager.applyFilter<MorphologicalGradientFilter>(/*structuring_element=*/StructuringElement::SQUARE, /*iterations=*/3);
 ```
 
 **Параметры:** Нет (использует встроенные структурные элементы 3x3, 5x5, 7x7)
