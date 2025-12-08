@@ -63,18 +63,19 @@ int main() {
     // auto current_structuring_element = disk;
     // auto current_big_structuring_element = bigDisk;
     //
-    // ImageManager grayscale_manager = ImageManager::getInstance();
-    // grayscale_manager.load("input/input3.jpg");
+    ImageManager grayscale_manager = ImageManager::getInstance();
+    grayscale_manager.load("input/input3.jpg");
+    // grayscale_manager.load("input/input4.png");
     // //
     // // grayscale_manager.applyFilter<GrayscaleErosionFilter>(/*structuring_element=*/current_structuring_element);
     // // grayscale_manager.applyFilter<GrayscaleDilationFilter>(/*structuring_element=*/current_structuring_element);
     // // grayscale_manager.applyFilter<GrayscaleClosingFilter>(/*structuring_element=*/current_structuring_element);
     // // grayscale_manager.applyFilter<GrayscaleOpeningFilter>(/*structuring_element=*/current_structuring_element);
     // // grayscale_manager.applyFilter<EdgeDetectionFilter>(/*structuring_element=*/current_structuring_element);
-    // grayscale_manager.applyFilter<MorphologicalGradientFilter>(StructuringElement::RHOMBUS);
+    grayscale_manager.applyFilter<MorphologicalGradientFilter>(/*structuring_element=*/StructuringElement::SQUARE, /*iterations=*/3);
     // //
     // //
-    // auto result2 = grayscale_manager.save("output/grayscale_morphological_gradient_test.jpg");
+    auto result2 = grayscale_manager.save("output/grayscale_morphological_gradient_test.jpg");
 
     // ImageManager binary_manager = ImageManager::getInstance();
     // binary_manager.load("input/input2.jpg");
@@ -90,15 +91,15 @@ int main() {
     // tmpm.applyFilter<BinaryDilationFilter>(/*structuring_element=*/rhombus_element);
     // tmpm.applyFilter<BinaryDilationFilter>(/*structuring_element=*/rhombus_element);
 
-    ImageManager manager = ImageManager::getInstance();
-    manager.load("input/input.jpg");
-
-    manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
+    // ImageManager manager = ImageManager::getInstance();
+    // manager.load("input/input.jpg");
+    //
+    // manager.applyFilter<DogFilter>(/*sigma1=*/3, /*sigma2=*/1, /*kernel_size=*/5, /*padding=*/2);
 
     // manager.applyFilter<SobelHorizontalFilter>();
 
-    manager.applyFilter<CannyFilter>(/*low=*/ 5.0, /*high=*/ 60.0);
+    // manager.applyFilter<CannyFilter>(/*low=*/ 5.0, /*high=*/ 60.0);
 
-    auto result1 = manager.save("output/dog_canny.jpg");
+    // auto result1 = manager.save("output/dog_canny.jpg");
     return 0;
 }

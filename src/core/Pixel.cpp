@@ -8,20 +8,54 @@
 #include <iosfwd>
 #include <random>
 
-Pixel::Pixel(uint8_t rInput, uint8_t gInput, uint8_t bInput) : r(rInput), g(gInput), b(bInput) {
+Pixel::Pixel(Pixel &pixel, bool isUseClamp) : r(pixel.getR()), g(pixel.getG()), b(pixel.getB()), is_use_clamp(isUseClamp)  {
+    clamp();
+}
+
+Pixel::Pixel(uint8_t rInput, uint8_t gInput, uint8_t bInput, bool isUseClamp) : r(rInput), g(gInput), b(bInput),
+                                                                                is_use_clamp(isUseClamp) {
+    clamp();
 }
 
 Pixel Pixel::maxBrightness() {
-    return Pixel(255, 255, 255);
+    return {255, 255, 255};
 }
 
 Pixel Pixel::minBrightness() {
-    return Pixel(0, 0, 0);
+    return {0, 0, 0};
 }
 
-Pixel Pixel::fromBrightness(double brightness) {
+Pixel Pixel::fromBrightness(double brightness, bool isUseClamp) {
     brightness = std::clamp(brightness, 0.0, 255.0);
-    return Pixel(brightness, brightness, brightness);
+
+    return Pixel(brightness, brightness, brightness, isUseClamp);
+}
+
+uint8_t Pixel::getClampedValue(double value) {
+    return std::clamp(value, 0.0, 255.0);
+}
+
+uint8_t Pixel::getClampedConditionalValue(double value, std::initializer_list<Pixel> processing) {
+    bool clamp_condition = true;
+
+    for (const auto pixel: processing) {
+        if (!pixel.isClamping()) {
+            clamp_condition = false;
+            break;
+        }
+    }
+
+    auto new_value = value;
+
+    if (clamp_condition) {
+        new_value = getClampedValue(value);
+    }
+
+    return new_value;
+}
+
+bool Pixel::isClamping() const {
+    return is_use_clamp;
 }
 
 Pixel Pixel::getGrayscaled() {
@@ -39,7 +73,7 @@ Pixel Pixel::randPixel() {
     uint8_t r = randomDouble();
     uint8_t g = randomDouble();
     uint8_t b = randomDouble();
-    return Pixel(r, g, b);
+    return {r, g, b};
 }
 
 uint8_t Pixel::getR() const { return r; }
@@ -52,9 +86,9 @@ void Pixel::setB(uint8_t value) { b = value; }
 
 Pixel Pixel::operator*(double scalar) const {
     return Pixel(
-        std::clamp(r * scalar, 0.0, 255.0),
-        std::clamp(g * scalar, 0.0, 255.0),
-        std::clamp(b * scalar, 0.0, 255.0)
+        getClampedConditionalValue(r * scalar, {*this}),
+        getClampedConditionalValue(g * scalar, {*this}),
+        getClampedConditionalValue(b * scalar, {*this})
     );
 }
 
@@ -67,27 +101,30 @@ Pixel operator*(int scalar, const Pixel &pixel) {
 }
 
 Pixel Pixel::operator/(double scalar) const {
-    if (scalar == 0) return Pixel();
+    if (scalar == 0) {
+        return {};
+    }
+
     return Pixel(
-        static_cast<uint8_t>(std::clamp(r / scalar, 0.0, 255.0)),
-        static_cast<uint8_t>(std::clamp(g / scalar, 0.0, 255.0)),
-        static_cast<uint8_t>(std::clamp(b / scalar, 0.0, 255.0))
+        getClampedConditionalValue(r / scalar, {*this}),
+        getClampedConditionalValue(g / scalar, {*this}),
+        getClampedConditionalValue(b / scalar, {*this})
     );
 }
 
 Pixel Pixel::operator+(const Pixel &other) const {
     return Pixel(
-        static_cast<uint8_t>(std::clamp(r + other.r, 0, 255)),
-        static_cast<uint8_t>(std::clamp(g + other.g, 0, 255)),
-        static_cast<uint8_t>(std::clamp(b + other.b, 0, 255))
+        getClampedConditionalValue(r + other.r, {*this, other}),
+        getClampedConditionalValue(g + other.g, {*this, other}),
+        getClampedConditionalValue(b + other.b, {*this, other})
     );
 }
 
 Pixel Pixel::operator-(const Pixel &other) const {
     return Pixel(
-        static_cast<uint8_t>(std::clamp(r - other.r, 0, 255)),
-        static_cast<uint8_t>(std::clamp(g - other.g, 0, 255)),
-        static_cast<uint8_t>(std::clamp(b - other.b, 0, 255))
+        getClampedConditionalValue(r - other.r, {*this, other}),
+        getClampedConditionalValue(g - other.g, {*this, other}),
+        getClampedConditionalValue(b - other.b, {*this, other})
     );
 }
 
@@ -124,28 +161,28 @@ double Pixel::brightness() const {
 }
 
 void Pixel::clamp() {
-    r = static_cast<uint8_t>(std::clamp(static_cast<double>(r), 0.0, 255.0));
-    g = static_cast<uint8_t>(std::clamp(static_cast<double>(g), 0.0, 255.0));
-    b = static_cast<uint8_t>(std::clamp(static_cast<double>(b), 0.0, 255.0));
+    r = getClampedConditionalValue(r, {*this});
+    g = getClampedConditionalValue(g, {*this});
+    b = getClampedConditionalValue(b, {*this});
 }
 
 Pixel Pixel::invert() const {
     return Pixel(255 - r, 255 - g, 255 - b);
 }
 
-bool Pixel::operator<(const Pixel& other) const {
+bool Pixel::operator<(const Pixel &other) const {
     return this->brightness() < other.brightness();
 }
 
-bool Pixel::operator<=(const Pixel& other) const {
+bool Pixel::operator<=(const Pixel &other) const {
     return this->brightness() <= other.brightness();
 }
 
-bool Pixel::operator>(const Pixel& other) const {
+bool Pixel::operator>(const Pixel &other) const {
     return this->brightness() > other.brightness();
 }
 
-bool Pixel::operator>=(const Pixel& other) const {
+bool Pixel::operator>=(const Pixel &other) const {
     return this->brightness() >= other.brightness();
 }
 
@@ -165,26 +202,27 @@ bool Pixel::operator>=(double value) const {
     return this->brightness() >= value;
 }
 
-bool operator<(double value, const Pixel& pixel) {
+bool operator<(double value, const Pixel &pixel) {
     return value < pixel.brightness();
 }
 
-bool operator<=(double value, const Pixel& pixel) {
+bool operator<=(double value, const Pixel &pixel) {
     return value <= pixel.brightness();
 }
 
-bool operator>(double value, const Pixel& pixel) {
+bool operator>(double value, const Pixel &pixel) {
     return value > pixel.brightness();
 }
 
-bool operator>=(double value, const Pixel& pixel) {
+bool operator>=(double value, const Pixel &pixel) {
     return value >= pixel.brightness();
 }
 
-std::ostream& operator<<(std::ostream& os, const Pixel& pixel) {
+std::ostream &operator<<(std::ostream &os, const Pixel &pixel) {
     os << "Pixel(R:" << static_cast<int>(pixel.getR()) << "\t"
-       << ", G:" << static_cast<int>(pixel.getG()) << "\t"
-       << ", B:" << static_cast<int>(pixel.getB())
-       << ")";
+            << ", G:" << static_cast<int>(pixel.getG()) << "\t"
+            << ", B:" << static_cast<int>(pixel.getB()) << "\t"
+            << ", isClamping:" << static_cast<int>(pixel.isClamping())
+            << ")";
     return os;
 }

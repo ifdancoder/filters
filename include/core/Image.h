@@ -14,9 +14,10 @@ class Image: public std::enable_shared_from_this<Image> {
 protected:
     int w, h;
     std::vector<Pixel> data;
+    bool is_use_clamp = true;
 
 public:
-    explicit Image(int width = 0, int height = 0);
+    explicit Image(int width = 0, int height = 0, bool isUseClamp = true);
 
     explicit Image(const cv::Mat& image);
 

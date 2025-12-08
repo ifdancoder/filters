@@ -6,19 +6,30 @@
 #define FILTERS_PIXEL_H
 #include <cstdint>
 #include <iostream>
+#include <optional>
+#include <vector>
 
 
 class Pixel {
 protected:
-    uint8_t r, g, b;
+    uint8_t r = 0, g = 0, b = 0;
+    bool is_use_clamp = true;
 
 public:
-    explicit Pixel(uint8_t rInput = 0, uint8_t gInput = 0, uint8_t bInput = 0);
+    Pixel(Pixel &pixel, bool isUseClamp);
+
+    Pixel(uint8_t rInput = 0, uint8_t gInput = 0, uint8_t bInput = 0, bool isUseClamp = true);
 
     static Pixel maxBrightness();
     static Pixel minBrightness();
 
-    static Pixel fromBrightness(double brightness);
+    static Pixel fromBrightness(double brightness, bool isUseClamp = true);
+
+    static uint8_t getClampedValue(double value);
+
+    static uint8_t getClampedConditionalValue(double value, std::initializer_list<Pixel> processing = {});
+
+    bool isClamping() const;
 
     Pixel getGrayscaled();
 

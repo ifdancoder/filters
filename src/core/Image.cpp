@@ -8,7 +8,7 @@
 
 #include "core/Pixel.h"
 
-Image::Image(int width, int height) : w(width), h(height), data(w * h, Pixel()) {
+Image::Image(int width, int height, bool isUseClamp) : w(width), h(height), is_use_clamp(isUseClamp), data(w * h, Pixel(isUseClamp)) {
 }
 
 Image::Image(const cv::Mat &image) {
